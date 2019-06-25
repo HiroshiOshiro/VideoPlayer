@@ -31,5 +31,18 @@ class VideoTableViewCell: UITableViewCell {
         presenterNameLabel.text = data.presenterName
         descriptionLabel.text = data.description
         
+        if let url = URL(string: data.thumbnailUrl) {
+            thumbnailImageView.image = getImageWithURL(url: url)
+        }
+    }
+    
+    func getImageWithURL(url: URL) -> UIImage? {
+        do {
+            let data = try Data(contentsOf: url)
+            return UIImage(data: data)
+        } catch let err {
+            print("Error: \(err.localizedDescription)")
+        }
+        return nil
     }
 }
