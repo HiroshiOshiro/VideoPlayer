@@ -27,12 +27,38 @@ class PlayerViewController: AVPlayerViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        setPlayer()
+
+        // To catch screen rotation
+        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationDidChange(notification:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // remove time observer
+        if let timeObserverToken = timeObserverToken {
+            self.player?.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setTimeLabel()
+    }
+    
+    @objc func onOrientationDidChange(notification: NSNotification) {
+        if currentOrientation !=  UIApplication.shared.statusBarOrientation {
+            setTimeLabel()
+            currentOrientation = UIApplication.shared.statusBarOrientation
+        }
+    }
+    
+    // MARK: private method
+    private func setPlayer() {
         guard let url = URL(string: videoInfo?.videoUrl ?? "") else {
             return
         }
-
-        let videoPlayer = AVPlayer(url: url)
-        self.player = videoPlayer
+        
+        self.player = AVPlayer(url: url)
         self.player?.play()
         
         // set periodical function
@@ -41,36 +67,21 @@ class PlayerViewController: AVPlayerViewController {
         timeObserverToken = self.player?.addPeriodicTimeObserver(forInterval: time, queue: nil, using: {[weak self] time in
             self?.setCurrentTime()
         })
-
-        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationDidChange(notification:)), name: UIDevice.orientationDidChangeNotification, object: nil)
-    }
-    
-    
-    @objc func onOrientationDidChange(notification: NSNotification) {
-        print("onOrientationDidChange")
-        if currentOrientation !=  UIApplication.shared.statusBarOrientation {
-            setTimeLabel()
-            currentOrientation = UIApplication.shared.statusBarOrientation
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        setTimeLabel()
     }
     
     /// set label to show "current time" / "total time" in the video
+    /// Could not set UILabel in xib in AVPlayerViewController... So creating in code.
     private func setTimeLabel() {
         let newLabel = UILabel()
-        newLabel.frame.size = CGSize(width: 200.0, height: timeLabelHight);
+        newLabel.frame.size = CGSize(width: self.view.frame.width, height: timeLabelHight);
         newLabel.textAlignment = .center
         
         if #available(iOS 11.0, *) {
             newLabel.center = CGPoint(x: self.view.frame.width / 2,
                                                y: (self.view.safeAreaInsets.top + timeLabelHight / 2))
         } else {
-            newLabel.center = CGPoint(x: self.view.frame.width / 2, y: 0 + timeLabelHight / 2)
+            newLabel.center = CGPoint(x: self.view.frame.width / 2, y: timeLabelHight / 2)
         }
-        print(newLabel.frame)
         
         newLabel.textColor = .lightGray
         self.view.addSubview(newLabel)
@@ -88,13 +99,5 @@ class PlayerViewController: AVPlayerViewController {
         let time = self.player?.currentTime().durationText
         
         playingTimeLabel?.text = (time ?? "") + "/" + (duration ?? "")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        // remove time observer
-        if let timeObserverToken = timeObserverToken {
-            self.player?.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
-        }
     }
 }
