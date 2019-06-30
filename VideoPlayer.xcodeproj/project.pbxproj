@@ -14,6 +14,10 @@
 		6898725A22BF5155004DA1D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6898725822BF5155004DA1D8 /* Main.storyboard */; };
 		6898725C22BF5157004DA1D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6898725B22BF5157004DA1D8 /* Assets.xcassets */; };
 		6898725F22BF5157004DA1D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6898725D22BF5157004DA1D8 /* LaunchScreen.storyboard */; };
+		68B0757122C5E015002110BE /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B0757022C5E015002110BE /* PlayerViewController.swift */; };
+		68CC753522C88283005F46D5 /* CMTime+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC753422C88283005F46D5 /* CMTime+Text.swift */; };
+		68CC753822C88C70005F46D5 /* UIImageView+AsyncLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC753722C88C70005F46D5 /* UIImageView+AsyncLoad.swift */; };
+		68CC754322C88E64005F46D5 /* APIAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC754222C88E64005F46D5 /* APIAccess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,7 @@
 				688FFD4722BF778A0004A8FB /* VideoTableViewCell.swift */,
 				688FFD4922BF7C6C0004A8FB /* VideoInfo.swift */,
 				6898725822BF5155004DA1D8 /* Main.storyboard */,
+				68CC753922C88D22005F46D5 /* Network */,
 				6898725B22BF5157004DA1D8 /* Assets.xcassets */,
 				6898725D22BF5157004DA1D8 /* LaunchScreen.storyboard */,
 				6898726022BF5157004DA1D8 /* Info.plist */,
@@ -144,6 +149,7 @@
 				688FFD4622BF714F0004A8FB /* VideoListViewController.swift in Sources */,
 				688FFD4A22BF7C6C0004A8FB /* VideoInfo.swift in Sources */,
 				6898725522BF5155004DA1D8 /* AppDelegate.swift in Sources */,
+				68CC754322C88E64005F46D5 /* APIAccess.swift in Sources */,
 				688FFD4822BF778A0004A8FB /* VideoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
