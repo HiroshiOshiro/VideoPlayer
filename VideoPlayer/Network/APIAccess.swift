@@ -12,7 +12,7 @@ class APIAccess {
     
     static private let baseURL = "https://quipper.github.io/native-technical-exam/playlist.json"
     
-    static func getVideoInfo(completion: @escaping ([VideoInfo]) -> Void) {
+    static func getVideoInfo(completion: @escaping ([Video]) -> Void) {
         guard let url = URL(string: baseURL) else {
             return
         }
@@ -29,7 +29,7 @@ class APIAccess {
                 let d = data {
                 let decoder = JSONDecoder()
                 do {
-                    let videos = try decoder.decode([VideoInfo].self, from: d)
+                    let videos = try decoder.decode([Video].self, from: d)
                     completion(videos)
                 } catch {
                     print("error: ", error.localizedDescription)

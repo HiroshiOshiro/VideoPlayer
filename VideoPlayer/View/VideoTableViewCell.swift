@@ -17,7 +17,7 @@ class VideoTableViewCell: UITableViewCell {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var imageBaseView: UIView!
     
-    func setUpWithData(data: VideoInfo) {
+    func setUpWithData(data: Video) {
         titleLabel.text = data.title
         presenterNameLabel.text = data.presenterName
         descriptionLabel.text = data.description

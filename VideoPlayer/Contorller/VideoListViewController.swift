@@ -12,7 +12,7 @@ class VideoListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var videos: [VideoInfo]? {
+    var videos: [Video]? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -42,7 +42,7 @@ class VideoListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toPlayerView") {
             let playerView = segue.destination as! PlayerViewController
-            playerView.videoInfo = (sender as? VideoInfo)
+            playerView.videoInfo = (sender as? Video)
         }
     }
     
@@ -82,49 +82,3 @@ extension VideoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-//// Video
-//extension VideoListViewController {
-//    func playMovieFromUrl(movieUrl: URL?) {
-//        if let movieUrl = movieUrl {
-//            // https://developer.apple.com/documentation/avfoundation/avasset
-//            let videoPlayer = AVPlayer(url: movieUrl)
-//            let playerController = AVPlayerViewController()
-//            playerController.player = videoPlayer
-//            playerController.showsPlaybackControls = true
-//
-//
-//            let timeScale = CMTimeScale(NSEC_PER_SEC)
-//            let time = CMTime(seconds: 0.5, preferredTimescale: timeScale)
-//
-//
-//            // time毎に呼び出される.
-//            videoPlayer.addPeriodicTimeObserver(forInterval: time, queue: nil, using: {time in
-//                // 総再生時間を取得.
-//                let duration = CMTimeGetSeconds(videoPlayer.currentItem!.duration)
-//                print(duration)
-//
-//                // 現在の時間を取得.
-//                let time = CMTimeGetSeconds(videoPlayer.currentTime())
-//                print(time)
-//            })
-//
-//            self.present(playerController, animated: true, completion: {
-//                videoPlayer.play()
-//                if #available(iOS 11.0, *) {
-//                    print(playerController.view.safeAreaInsets)
-//
-//                    let label = UILabel(frame: CGRect(x: playerController.view.safeAreaInsets.left, y: playerController.view.safeAreaInsets.top, width: 200, height: 50) )
-//
-//                    label.text = "test"
-//                    label.textColor = .white
-//                    playerController.view.addSubview(label)
-//                } else {
-//                    // Fallback on earlier versions
-//                }
-//            })
-//        } else {
-//            print("cannot play")
-//        }
-//    }
-//}

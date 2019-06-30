@@ -12,7 +12,7 @@ import AVKit
 class PlayerViewController: AVPlayerViewController {
     var playingTimeLabel: UILabel!
     
-    var videoInfo: VideoInfo? = nil
+    var videoInfo: Video? = nil
     
     var timeObserverToken: Any?
     
